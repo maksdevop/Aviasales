@@ -1,0 +1,32 @@
+.Card {
+    padding: 20px;
+    background-color: white;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.CardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.CardPrice {
+    color: #2196f3;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.CardInfo {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.CardInfoSchedule p:first-child,
+.CardInfoTime p:first-child,
+.CardInfoTransplant p:first-child {
+    color: #a0b0b9;
+    text-transform: uppercase;
+}
