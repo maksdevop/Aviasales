@@ -30,7 +30,7 @@
         "vite": "^6.0.5"
     },
     "lint-staged": {
-        "src/**/*.{js,jsx,ts,tsx}": [
+        "*.{js,jsx}": [
             "eslint --fix",
             "prettier --write"
         ]
