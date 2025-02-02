@@ -1,44 +1,34 @@
-import React from 'react';
-import styles from './Transplant.module.scss';
+import styles from "./Transplant.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCheckbox } from "../../store/actions/checkboxActions";
 
 const Transplant = () => {
-    return (
-        <div className={styles.Transplant}>
-            <h3 className={styles.TransplantHeader}>Количество пересадок</h3>
-            <ul className={styles.TransplantList}>
-                <li className={styles.TransplantItem}>
-                    <form>
-                        <input className={styles.TransplantCheckbox} type="checkbox" />
-                    </form>
-                    <p>Все</p>
-                </li>
-                <li className={styles.TransplantItem}>
-                    <form>
-                        <input className={styles.TransplantCheckbox} type="checkbox" />
-                    </form>
-                    <p>Без пересадок</p>
-                </li>
-                <li className={styles.TransplantItem}>
-                    <form>
-                        <input className={styles.TransplantCheckbox} type="checkbox" />
-                    </form>
-                    <p>1 пересадка</p>
-                </li>
-                <li className={styles.TransplantItem}>
-                    <form>
-                        <input className={styles.TransplantCheckbox} type="checkbox" />
-                    </form>
-                    <p>2 пересадки</p>
-                </li>
-                <li className={styles.TransplantItem}>
-                    <form>
-                        <input className={styles.TransplantCheckbox} type="checkbox" />
-                    </form>
-                    <p>3 пересадки</p>
-                </li>
-            </ul>
-        </div>
-    );
+  const checkboxes = useSelector((state) => state.checkbox.checkboxes);
+  const dispatch = useDispatch();
+  console.log(checkboxes);
+
+  const handleCheckboxChange = (id) => {
+    dispatch(toggleCheckbox(id));
+  };
+
+  return (
+    <div className={styles.Transplant}>
+      <h3 className={styles.TransplantHeader}>Количество пересадок</h3>
+      <div className={styles.TransplantItem}>
+        {Object.entries(checkboxes).map(([id, checked]) => (
+          <label key={id}>
+            <input
+              className={styles.TransplantCheckbox}
+              type="checkbox"
+              checked={checked}
+              onChange={() => handleCheckboxChange(id)}
+            />
+            {id}
+          </label>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Transplant;
