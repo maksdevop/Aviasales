@@ -1,6 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Асинхронное действие для получения searchId
 export const fetchSearchId = createAsyncThunk(
   "tickets/fetchSearchId",
   async () => {
@@ -12,7 +11,6 @@ export const fetchSearchId = createAsyncThunk(
   },
 );
 
-// Асинхронное действие для получения билетов
 export const fetchTickets = createAsyncThunk(
   "tickets/fetchTickets",
   async (searchId) => {
@@ -33,6 +31,8 @@ export const fetchTickets = createAsyncThunk(
       stop = data.stop;
     }
 
-    return { tickets: tickets.slice(0, 5), stop: true };
+    return { tickets: tickets, stop: true };
   },
 );
+
+export const showMoreTickets = createAction("tickets/showMoreTickets");

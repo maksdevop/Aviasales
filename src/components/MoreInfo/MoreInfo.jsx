@@ -1,8 +1,10 @@
+import { useDispatch } from "react-redux";
 import styles from "./MoreInfo.module.scss";
-
+import { showMoreTickets } from "../../store/actions/ticketsActions";
 const MoreInfo = () => {
+  const dispatch = useDispatch();
   const handleClick = () => {
-    console.log("вывести еще 5 билетов");
+    dispatch(showMoreTickets());
   };
 
   return (

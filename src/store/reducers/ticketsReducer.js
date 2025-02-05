@@ -1,9 +1,13 @@
-import { fetchSearchId, fetchTickets } from "../actions/ticketsActions";
+import {
+  fetchSearchId,
+  fetchTickets,
+  showMoreTickets,
+} from "../actions/ticketsActions";
 
 const initialState = {
   searchId: null,
   tickets: [],
-  visibleTicketsCount: 5,
+  visibleTicketsCount: 5, // Новое состояние
   status: "idle",
   error: null,
 };
@@ -25,7 +29,7 @@ const ticketsReducer = (state = initialState, action) => {
     case fetchTickets.fulfilled.type:
       return {
         ...state,
-        tickets: action.payload.tickets,
+        tickets: [...state.tickets, ...action.payload.tickets], // Добавляем новые билеты в массив
         status: action.payload.stop ? "completed" : "idle",
       };
     case fetchSearchId.rejected.type:
@@ -34,6 +38,11 @@ const ticketsReducer = (state = initialState, action) => {
         ...state,
         status: "failed",
         error: action.error.message,
+      };
+    case showMoreTickets.type: // Обработка нового экшена
+      return {
+        ...state,
+        visibleTicketsCount: state.visibleTicketsCount + 5,
       };
     default:
       return state;

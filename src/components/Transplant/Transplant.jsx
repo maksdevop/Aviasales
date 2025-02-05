@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCheckbox } from "../../store/actions/checkboxActions";
 
 const Transplant = () => {
-  const checkboxes = useSelector((state) => state.checkbox.checkboxes);
   const dispatch = useDispatch();
-  console.log(checkboxes);
+
+  const checkboxes = useSelector((state) => state.checkbox.checkboxes);
 
   const handleCheckboxChange = (id) => {
     dispatch(toggleCheckbox(id));

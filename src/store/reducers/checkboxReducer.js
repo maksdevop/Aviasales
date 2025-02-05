@@ -2,7 +2,6 @@ const initialState = {
   checkboxes: {
     Все: false,
     "Без пересадок": false,
-
     "1 пересадка": false,
     "2 пересадки": false,
     "3 пересадки": false,

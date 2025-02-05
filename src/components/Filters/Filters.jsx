@@ -5,8 +5,6 @@ import { setSortType } from "../../store/actions/sortActions";
 const Filters = () => {
   const sortType = useSelector((state) => state.sort.sortType);
   const dispatch = useDispatch();
-  console.log("Current sort type:", sortType);
-
   const getClassName = (type) => {
     return `${styles.FiltersItem} ${sortType === type ? styles.FiltersActive : ""}`;
   };
