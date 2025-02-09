@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Card.module.scss";
-import {
-  fetchTickets,
-  fetchSearchId,
-} from "../../store/actions/ticketsActions";
+import { fetchTickets, fetchSearchId } from "../../store/ticketsActions";
 import MoreInfo from "../MoreInfo/MoreInfo";
 
 const Card = () => {

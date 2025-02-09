@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
 import styles from "./MoreInfo.module.scss";
-import { showMoreTickets } from "../../store/actions/ticketsActions";
+import { useDispatch } from "react-redux";
+import { showMoreTickets } from "../../store/ticketsReducer"; // Исправьте путь импорта
+
 const MoreInfo = () => {
   const dispatch = useDispatch();
+
   const handleClick = () => {
     dispatch(showMoreTickets());
   };
