@@ -5,7 +5,7 @@ import { fetchSearchId, fetchTickets } from "../../store/ticketsActions";
 import MoreInfo from "../MoreInfo/MoreInfo";
 
 const Card = () => {
-  const checkboxes = useSelector((state) => state.checkbox.checkboxes);
+  const checkboxes = useSelector((state) => state.checkboxes); // Обновлено
   const sortType = useSelector((state) => state.sort.sortType);
   const dispatch = useDispatch();
   const { searchId, tickets, visibleTicketsCount, status, error } = useSelector(
@@ -28,6 +28,11 @@ const Card = () => {
   }, [dispatch, searchId, status]);
 
   const applyFilters = (tickets) => {
+    console.log("Исходные билеты:", tickets);
+    console.log("Состояние чекбоксов:", checkboxes);
+
+    if (!checkboxes) return tickets;
+
     const activeFilters = Object.keys(checkboxes).filter(
       (key) => checkboxes[key] && key !== "Все",
     );
@@ -36,7 +41,7 @@ const Card = () => {
       return tickets;
     }
 
-    return tickets.filter((ticket) => {
+    const filteredTickets = tickets.filter((ticket) => {
       return activeFilters.some((filter) => {
         return ticket.segments.some((segment) => {
           const stopsFilter =
@@ -47,6 +52,9 @@ const Card = () => {
         });
       });
     });
+
+    console.log("Отфильтрованные билеты:", filteredTickets);
+    return filteredTickets;
   };
 
   const applySort = (tickets) => {
@@ -66,7 +74,6 @@ const Card = () => {
           return totalDurationA - totalDurationB;
         });
       case "оптимальный":
-        // Для "оптимального" можно сделать комбинацию или другую логику
         return [...tickets].sort(
           (a, b) => a.price - b.price || a.duration - b.duration,
         );
@@ -76,6 +83,10 @@ const Card = () => {
   };
 
   const filteredAndSortedTickets = applySort(applyFilters(tickets));
+  console.log(
+    "Фильтрованные и отсортированные билеты:",
+    filteredAndSortedTickets,
+  );
 
   if (status === "loading") return <p>Loading...</p>;
   if (status === "failed") return <p>Error: {error}</p>;

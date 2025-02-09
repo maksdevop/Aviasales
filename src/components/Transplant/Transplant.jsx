@@ -1,11 +1,10 @@
 import styles from "./Transplant.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCheckbox } from "../../store/actions/checkboxActions";
+import { toggleCheckbox } from "../../store/checkboxReducer";
 
 const Transplant = () => {
   const dispatch = useDispatch();
-
-  const checkboxes = useSelector((state) => state.checkbox.checkboxes);
+  const checkboxes = useSelector((state) => state.checkboxes);
 
   const handleCheckboxChange = (id) => {
     dispatch(toggleCheckbox(id));

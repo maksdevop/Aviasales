@@ -1,49 +1,37 @@
-const initialState = {
-  checkboxes: {
+import { createSlice } from "@reduxjs/toolkit";
+
+const checkboxesSlice = createSlice({
+  name: "checkboxes",
+  initialState: {
     Все: false,
     "Без пересадок": false,
     "1 пересадка": false,
     "2 пересадки": false,
     "3 пересадки": false,
   },
-};
-
-const TOGGLE_CHECKBOX = "TOGGLE_CHECKBOX";
-
-const checkboxReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case TOGGLE_CHECKBOX: {
-      let newCheckboxes = { ...state.checkboxes };
-
-      if (action.payload === "Все") {
-        const isChecked = !state.checkboxes["Все"];
-        newCheckboxes = Object.fromEntries(
-          Object.entries(state.checkboxes).map(([key]) => [key, isChecked]),
-        );
+  reducers: {
+    toggleCheckbox: (state, action) => {
+      const { payload } = action;
+      if (payload === "Все") {
+        const isChecked = !state["Все"];
+        Object.keys(state).forEach((key) => (state[key] = isChecked));
       } else {
-        newCheckboxes[action.payload] = !state.checkboxes[action.payload];
+        state[payload] = !state[payload];
 
-        if (state.checkboxes["Все"]) {
-          newCheckboxes["Все"] = false;
+        if (state["Все"]) {
+          state["Все"] = false;
         }
 
-        const allChecked = Object.keys(newCheckboxes).every(
-          (key) => key === "Все" || newCheckboxes[key],
+        const allChecked = Object.keys(state).every(
+          (key) => key === "Все" || state[key],
         );
-
         if (allChecked) {
-          newCheckboxes["Все"] = true;
+          state["Все"] = true;
         }
       }
+    },
+  },
+});
 
-      return {
-        ...state,
-        checkboxes: newCheckboxes,
-      };
-    }
-    default:
-      return state;
-  }
-};
-
-export default checkboxReducer;
+export const { toggleCheckbox } = checkboxesSlice.actions;
+export default checkboxesSlice.reducer;
