@@ -1,13 +1,13 @@
+import axios from "axios";
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchSearchId = createAsyncThunk(
   "tickets/fetchSearchId",
   async () => {
-    const response = await fetch(
+    const response = await axios.get(
       "https://aviasales-test-api.kata.academy/search",
     );
-    const data = await response.json();
-    return data.searchId;
+    return response.data.searchId;
   },
 );
 
@@ -18,10 +18,10 @@ export const fetchTickets = createAsyncThunk(
     let stop = false;
 
     while (!stop && tickets.length < 5) {
-      const response = await fetch(
+      const response = await axios.get(
         `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`,
       );
-      const data = await response.json();
+      const data = response.data;
 
       if (Array.isArray(data.tickets)) {
         tickets.push(...data.tickets);

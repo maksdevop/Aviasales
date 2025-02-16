@@ -1,10 +1,11 @@
 import styles from "./Filters.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSortType } from "../../store/actions/sortActions";
+import { setSortType } from "../../store/sortReducer";
 
 const Filters = () => {
   const sortType = useSelector((state) => state.sort.sortType);
   const dispatch = useDispatch();
+
   const getClassName = (type) => {
     return `${styles.FiltersItem} ${sortType === type ? styles.FiltersActive : ""}`;
   };
