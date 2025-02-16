@@ -5,7 +5,7 @@ import { fetchSearchId, fetchTickets } from "../../store/ticketsActions";
 import MoreInfo from "../MoreInfo/MoreInfo";
 
 const Card = () => {
-  const checkboxes = useSelector((state) => state.checkboxes); // Обновлено
+  const checkboxes = useSelector((state) => state.checkboxes);
   const sortType = useSelector((state) => state.sort.sortType);
   const dispatch = useDispatch();
   const { searchId, tickets, visibleTicketsCount, status, error } = useSelector(
@@ -79,6 +79,10 @@ const Card = () => {
   };
 
   const filteredAndSortedTickets = applySort(applyFilters(tickets));
+  console.log(
+    "Фильтрованные и отсортированные билеты:",
+    filteredAndSortedTickets,
+  );
 
   if (status === "loading") return <p>Loading...</p>;
   if (status === "failed") return <p>Error: {error}</p>;
