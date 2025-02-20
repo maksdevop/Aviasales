@@ -9,6 +9,7 @@ const ticketsSlice = createSlice({
     visibleTicketsCount: 5,
     status: "idle",
     error: null,
+    stop: false,
   },
   reducers: {
     showMoreTickets: (state) => {
@@ -34,6 +35,7 @@ const ticketsSlice = createSlice({
       .addCase(fetchTickets.fulfilled, (state, action) => {
         state.tickets.push(...action.payload.tickets);
         state.status = action.payload.stop ? "completed" : "idle";
+        state.stop = action.payload.stop;
       })
       .addCase(fetchTickets.rejected, (state, action) => {
         state.status = "failed";

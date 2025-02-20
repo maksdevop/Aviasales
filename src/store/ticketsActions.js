@@ -17,20 +17,27 @@ export const fetchTickets = createAsyncThunk(
     const tickets = [];
     let stop = false;
 
-    while (!stop && tickets.length < 5) {
-      const response = await axios.get(
-        `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`,
-      );
-      const data = response.data;
+    while (!stop) {
+      try {
+        const response = await axios.get(
+          `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`,
+        );
+        const data = response.data;
 
-      if (Array.isArray(data.tickets)) {
-        tickets.push(...data.tickets);
-      } else {
-        throw new Error("Некорректный формат данных");
+        if (Array.isArray(data.tickets)) {
+          tickets.push(...data.tickets);
+        } else {
+          throw new Error("Некорректный формат данных");
+        }
+
+        if (data.stop) {
+          stop = true;
+          break;
+        }
+      } catch (error) {
+        console.error("Ошибка при получении билетов:", error);
       }
-      stop = data.stop;
     }
-
     return { tickets: tickets, stop: true };
   },
 );

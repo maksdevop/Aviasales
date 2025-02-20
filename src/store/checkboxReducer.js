@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const checkboxesSlice = createSlice({
   name: "checkboxes",
   initialState: {
-    Все: false,
-    "Без пересадок": false,
-    "1 пересадка": false,
-    "2 пересадки": false,
-    "3 пересадки": false,
+    Все: true,
+    "Без пересадок": true,
+    "1 пересадка": true,
+    "2 пересадки": true,
+    "3 пересадки": true,
   },
   reducers: {
     toggleCheckbox: (state, action) => {

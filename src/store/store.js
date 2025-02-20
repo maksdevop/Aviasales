@@ -9,7 +9,8 @@ const store = configureStore({
     sort: sortReducer,
     tickets: ticketsReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export default store;
